@@ -5,11 +5,9 @@ NODEDISKSIZE="100"
 NODECOUNT="5"
 NODETYPE="n1-standard-2"
 
-# Builds the entire infrastructure you need to run this set of demos.
-build: env build.cluster
 
 # Requests a GKE cluster
-build.cluster:
+cluster: env
 	-gcloud container clusters create $(CLUSTER) --num-nodes $(NODECOUNT) \
 	--disk-size=$(NODEDISKSIZE) --machine-type=$(NODETYPE)
 
