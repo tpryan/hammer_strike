@@ -1,0 +1,8 @@
+queue:
+- name: urlcaller
+  target: hammer-strike-distributor
+  rate: 10/s
+  retry_parameters:
+    task_retry_limit: 0
+  bucket_size: 10
+  max_concurrent_requests: 10
