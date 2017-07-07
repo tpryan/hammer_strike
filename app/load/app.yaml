@@ -1,0 +1,14 @@
+runtime: go
+api_version: go1
+threadsafe: yes
+service: hammer-strike-load
+
+handlers:
+
+- url:  /favicon.ico
+  static_files: static/favicon.ico
+  upload: static/favicon.ico
+
+- url: /.*
+  script: _go_app
+
