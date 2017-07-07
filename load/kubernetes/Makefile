@@ -4,7 +4,7 @@ include ../../Makefile.properties
 
 app: build deploy
 
-build:  creds
+build:  env creds
 	gcloud container builds submit "$(BASEDIR)/../containers/." \
 	--tag=gcr.io/$(PROJECT)/hammer-strike
 
@@ -28,4 +28,3 @@ clean.config: env
 	-kubectl delete configmap load-url
 
 retry: clean build deploy
-
