@@ -14,7 +14,7 @@ deploy:  creds deploy.config
 
 deploy.config:
 	kubectl create configmap load-url \
-	--from-literal=url=https://$(GAE_HOST)/hammer-strike/load/
+	--from-literal=url=https://$(GAE_HOST)/load/
 
 clean: clean.deployment clean.service clean.config
 
