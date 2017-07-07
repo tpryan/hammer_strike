@@ -1,0 +1,10 @@
+
+dispatch:
+  - url: "*/distributor*"
+    module: hammer-strike-distributor
+
+  - url: "*/load*"
+    module: hammer-strike-load
+
+  - url: "*/*"
+    module: default
