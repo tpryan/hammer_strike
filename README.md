@@ -12,27 +12,23 @@ means to be a be both a web demo and a IoT assisted physical game.
 ### Create Project
 1. Create Project in Cloud Console
 1. Navigate to Compute Engine (to activate Compute Engine service)
-1. Activate the same project in the Firebase Console
+1. Navigate to the API Library and activate Container Builder API
 
 ### Create Config
-1. Make a copy of `/Samples.properties`, renamed to
-`/Makefile.properties`
+1. Make a copy of `/Samples.properties`, renamed to`/Makefile.properties`
 1. Alter value for `PROJECT` to your project id
 1. Make a copy of
 `/infrastructure/kubernetes/hammer-strike-deployment.sample.yaml`, renamed to `/infrastructure/kubernetes/hammer-strike-deployment.yaml`
 1. Alter value for `image` to point to your project id
-1. Make a copy of `/app/ui/static/js/firebaseconfig.sample.js`, renamed to
-`/app/ui/static/js/firebaseconfig.js`
-   - Alter values for `config` to point to valid values for your Firebase
-   project
-1. Make a copy of `/iot/firebaseconfig.sample.js`, renamed to
-`/iot/firebaseconfig.js`
-   - Alter values for `modules.export` to point to valid values for your
-   Firebase project
 
 ### Build Infrastructure
 1. Open a terminal in `/infrastructure/GKE`.
 1. Run `make build`
+1. Run `make rule`
+
+TO DOCUMENT
+INCLUDE creating the App Engine application.
+
 
 ### Build Application
 1. Open a terminal in `/app/kubernetes/`.
