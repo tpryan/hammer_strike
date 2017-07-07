@@ -1,0 +1,299 @@
+
+
+body{
+    background: url("background2.png");
+    background-size: cover;
+    color: #333;
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+.report{
+    position: absolute;
+    left: 20px;
+    top: -90px;
+    width: 300px;
+    height: 200px;
+    padding-top: 55px;
+    transition: color 0.2s ease;
+    font-family: 'Rye', cursive;
+    font-size: 1.4rem;
+    color: #222;
+    text-align: center;
+    background: url("sign.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.report span{
+    margin: 0 50px;
+    display: block;
+}
+
+.holder{
+    padding-top: 170px;
+    width: 1200px;
+    margin: 90px auto 5px auto;
+    background: url("holder_background.png");
+    background-size: cover;
+    border: 10px solid #333;
+    min-height: 550px;
+    position: relative;
+}
+
+#game{
+    width: 197px;
+    height: 647px;
+    background: url("game.png");
+    background-size: 100% 100%;
+    position: absolute;
+    right: 50px;
+    top: -80px;
+}
+
+#striker{
+    width: 23px;
+    height: 65px;
+    background: url("striker.png");
+    background-size: 100% 100%;
+    position: absolute;
+    left: 87px;
+    bottom: 90px;
+    transition: bottom 0.2s ease;
+}
+
+
+
+#loadcount {
+    width: 600px;
+    margin-top: 190px;
+}
+
+
+.alert{
+    position: absolute;
+    right:20%;
+    background: url("alert.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-size: 1.2rem;
+    width: 671px;
+    height: 436px;
+    margin: -240px auto 0 auto;
+    text-align: center;
+    color: #444;
+    display: none;
+}
+
+.alert .msg{
+    margin: 0 auto 0 auto;
+    padding-top: 140px;
+    display: block;
+}
+
+.count, .seconds, .qps{
+    font-weight: bold;
+}
+
+
+input[type=range] {
+    /*removes default webkit styles*/
+    -webkit-appearance: none;
+    margin-top: 50px;
+    
+    /*fix for FF unable to apply focus style bug */
+    border: 1px solid white;
+    
+    /*required for proper track sizing in FF*/
+    width: 300px;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 64px;
+    width: 62px;
+    border-radius: 50%;
+    margin-top: -20px;
+    background-image: url("hammer.png");
+    background-size: cover;
+}
+input[type=range]:focus {
+    outline: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+}
+
+input[type=range]::-moz-range-track {
+    width: 300px;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+}
+
+/*hide the outline behind the border*/
+input[type=range]:-moz-focusring{
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+input[type=range]::-ms-track {
+    width: 300px;
+    height: 5px;
+    
+    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    background: transparent;
+    
+    /*leave room for the larger thumb to overflow with a transparent border */
+    border-color: transparent;
+    border-width: 6px 0;
+
+    /*remove default tick marks*/
+    color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+    background: #777;
+    border-radius: 10px;
+}
+input[type=range]::-ms-fill-upper {
+    background: #ddd;
+    border-radius: 10px;
+}
+input[type=range]::-ms-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+}
+input[type=range]:focus::-ms-fill-lower {
+    background: #888;
+}
+input[type=range]:focus::-ms-fill-upper {
+    background: #ccc;
+}
+
+.lifter{
+    height: 100px;
+    width: 40px;
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-y: 0px; 
+
+}
+
+.lifter span{
+    display: block;
+    padding-top: 70px;
+    width: 100%;
+    text-align: center;
+}
+
+.male{
+    background-image: url("lifter-male.png"); 
+}
+
+.female{
+    background-image: url("lifter-female.png"); 
+}
+
+#gaelist{
+   
+    width: 900px;
+}
+
+#gaelist-header{
+    margin-top: 10px;
+    padding: 10px;
+    display: none;
+}
+#gaelist-header h2{
+    margin-top: 0;
+}
+
+#gaelist p{
+    background-color: #0F0;
+    width: 10px;
+    transition: width 0.5s ease;
+}
+
+.slider-holder{
+    padding: 10px;
+}
+
+
+.overlay{
+    font-family: 'Source Code Pro', monospace;
+    font-size: 14px;
+    background-color: #ccc;
+    border: 1px solid red;
+    display: none;
+}
+
+.overlay p{
+    margin: 10px;
+    padding: 10px;
+}
+
+
+.overlay-gaelist{
+    position:absolute;
+    bottom: 20px;
+    right: 30px;
+    width: 250px;
+}
+
+.overlay-slider{
+    position: absolute;
+    width: 620px;
+    left: 20px;
+    top: 210px; 
+
+}
+
+.overlay-alert{
+    position: absolute;
+    width: 600px;
+    left: 340px;
+    top: -80px; 
+
+}
+
+
+
+.explain{
+    position: fixed;
+    right: 0;
+    top: 0;
+    margin: 5px;
+    padding: 5px;
+    background-color: #ccc;
+    border: 1px solid red;
+    opacity: 0.5;
+    cursor: pointer;
+
+}
+
+.explain-show{
+    background-color: #fff;
+    border: 1px solid red;
+    opacity: 1;
+
+}
