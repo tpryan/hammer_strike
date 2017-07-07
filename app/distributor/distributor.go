@@ -53,7 +53,7 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 	//Using task queues because go on GAE does not support parallel processing.
 	for _, ln := range lns {
 		log.Infof(c, "host: %s n: %s c: %s token %s", ln.IP, n, cc, token)
-		t := taskqueue.NewPOSTTask("/hammer-strike/distributor/url", map[string][]string{
+		t := taskqueue.NewPOSTTask("/distributor/url", map[string][]string{
 			"host":  {ln.IP},
 			"n":     {n},
 			"c":     {cc},
