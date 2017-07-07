@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
-    <script src="js/firebaseconfig.js"></script>
     <script src="js/main.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Rye" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
@@ -13,9 +11,9 @@
 <body>
     <div class="holder">
         <div class="report"><span>App Engine<br />Hammer Strike</span></div>
-        
+
         <div class="alert">
-            
+
             <div class="msg">
                 You sent <span id="sentrequests"><span class="count">0</span> Requests</span> <br />
                 App Engine handled <span id="totalrequests"><span class="count"></span> Requests</span><br /> in <span class="seconds"></span> seconds <br /> (QPS: <span class="qps"></span>)<br />
@@ -23,7 +21,7 @@
 
             </div>
         </div>
-        
+
         <div id="game">
             <div id="striker"></div>
         </div>
@@ -32,28 +30,28 @@
             <button id="load">Send Load</button>
             <input id="loadcount" type="range" min="500" max="10000" step="5" />
             <output id="loadoutput" for="loadcount"></output>
-        </div>    
+        </div>
         <header id="gaelist-header">
             <p>Count indicates the numer of requests each instance handled.</p>
-        </header>    
+        </header>
         <div id="gaelist">
-            
+
         </div>
 
         <div class="overlay overlay-gaelist">
             <p>With App Engine you don't upload code without having to worry about configuring individual servers to handle it.
                 However when requests come hit App Engine, it needs to scale up workers to run your code and handle the request.
-                Each one of the figures here represents a worker, and the number below them is the number of requests each one handled.</p> 
+                Each one of the figures here represents a worker, and the number below them is the number of requests each one handled.</p>
         </div>
         <div class="overlay overlay-slider">
             <p>App Engine can scale up to handle large amounts of load. With this game, we'll scale up depending on how hard you can swing this hammer.
-                The harder you hit, the more requests we'll send at App Engine, which will lead to more workers being spun up. 
+                The harder you hit, the more requests we'll send at App Engine, which will lead to more workers being spun up.
             </p>
         </div>
 
          <div class="overlay overlay-alert">
-            <p>Here is where we report the stats for your attempt.  We show you how many requests you generated (higher is better), 
-                how long it took App Engine to handle them (lower is better), the Queries Per seconds we reached (higher is better), 
+            <p>Here is where we report the stats for your attempt.  We show you how many requests you generated (higher is better),
+                how long it took App Engine to handle them (lower is better), the Queries Per seconds we reached (higher is better),
                 and how many workers App Engine had to spin up to handle the requests you sent.</p>
         </div>
 
