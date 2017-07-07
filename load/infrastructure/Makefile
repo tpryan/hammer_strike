@@ -14,7 +14,7 @@ cluster: env
 rule:
 	gcloud compute --project $(PROJECT) firewall-rules create \
 	"external-load-port"  --allow tcp:30000 --network "default" \
-	--source-ranges "0.0.0.0/0" --target-tags "gke-node"
+	--source-ranges "0.0.0.0/0" --target-tags "goog-gke-node"
 
 # Runs all the clean commands.
 clean: env clean.cluster clean.repo
