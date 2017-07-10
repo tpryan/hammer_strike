@@ -127,7 +127,7 @@ func recordInstance(c context.Context, token string, instanceID string) error {
 
 	item0, err := memcache.Get(c, iList)
 	if err != nil && err != memcache.ErrCacheMiss {
-		return errors.New("cannot get list of instances: " + err.Error())
+		return errors.New("1st attempt - cannot get list of instances: " + err.Error())
 	}
 	if err != nil && err == memcache.ErrCacheMiss {
 		item1 := &memcache.Item{
@@ -137,14 +137,23 @@ func recordInstance(c context.Context, token string, instanceID string) error {
 		if err := memcache.Set(c, item1); err != nil {
 			return errors.New("cannot create list of instances: " + err.Error())
 		}
+		return nil
 	}
-	if err == nil {
-		list := string(item0.Value)
-		b := []byte(list + "|" + instanceID)
-		item0.Value = b
-		if err := memcache.Set(c, item0); err != nil {
-			return errors.New("cannot append list of instances: " + err.Error())
+	listItem := "|" + instanceID
+	item0.Value = append(item0.Value, listItem...)
+	if err := memcache.Set(c, item0); err != nil {
+		if err.Error() == "memcache: compare-and-swap conflict" {
+			item2, err := memcache.Get(c, iList)
+			if err != nil {
+				return errors.New("2nd attempt - cannot get list of instances: " + err.Error())
+			}
+			item2.Value = append(item2.Value, listItem...)
+			if err := memcache.Set(c, item2); err != nil {
+				return errors.New("2nd attempt - cannot append list of instances: " + err.Error())
+			}
+			return nil
 		}
+		return errors.New("1st attempt - cannot append list of instances: " + err.Error())
 	}
 	return nil
 }
