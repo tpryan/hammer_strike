@@ -38,7 +38,7 @@ html{
 	margin: 2px;
 	position: relative;
 	border-radius: 8px;
-	margin: 10px;
+	margin: 10px 20px 10px 10px;
 }
 
 
@@ -86,7 +86,7 @@ h2{
 .alert{
 	width: 600px;
 	position:absolute;
-	top: 100px;
+	top: 50px;
 	right: 0;
 	border: 1px solid #333;
 	border-radius: 8px;
@@ -105,4 +105,14 @@ h2{
 
 .nodecount{
 	display: inline-block;
+	width: 100%;
+}
+
+#ui{
+	margin-top: 80px;
+}
+
+.gke div{
+	margin-top: 30px;
+	text-align: center;
 }

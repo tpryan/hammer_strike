@@ -143,8 +143,9 @@ function resetView(){
     $("#load").prop("disabled", false);
     $("#reset").prop("disabled", true);
     $("#load_url").html('http://[a totally real app].appspot.com');
-     $("#gaelist").hide();
-     token = generator.Get();
+    $("#gaelist").hide();
+    $("#loaddetails").html("");
+    token = generator.Get();
 
 }
 
@@ -171,7 +172,7 @@ function divideCount(count){
     for (var i= 0; i < loads; i++){
         var nodeCountDiv  = $("<div>"+nodeCount+"</div>");
         nodeCountDiv.addClass("nodecount");
-        $("#loaddetails").append(nodeCountDiv);
+        $(".gke").html(nodeCountDiv);
     }
 
 }
