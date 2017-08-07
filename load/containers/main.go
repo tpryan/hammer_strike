@@ -12,6 +12,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/last", lastHandler)
 	http.HandleFunc("/healthz", healthHandler)
 	if err := http.ListenAndServe(":80", nil); err != nil {
 		fmt.Println(err.Error())
@@ -48,11 +49,10 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 			handleError(w, errors.New("Error: Might be an issue with env variable `urltohit` value="+urltohit))
 			return
 		}
-		writeLog(results)
 		handleError(w, err)
 		return
 	}
-
+	writeLog(results)
 	sendMessage(w, "success")
 	return
 
@@ -63,14 +63,42 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+func lastHandler(w http.ResponseWriter, r *http.Request) {
+	code := http.StatusOK
+	content := ""
+
+	dat, err := ioutil.ReadFile("/go/src/abrunner/logs/last.log")
+
+	if err != nil {
+		code = http.StatusNotFound
+		content = "{ \"error\" : \"Not Found\" }"
+	}
+
+	content = string(dat)
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Content-Type", "text/plain;  charset=UTF-8")
+	w.WriteHeader(code)
+
+	fmt.Fprint(w, content)
+
+	return
+}
+
 func ab(n, c, u string) ([]byte, error) {
-	args := []string{"-l", "-n", n, "-c", c, "-q", u}
+	args := []string{"-l", "-n", n, "-c", c, "-v", "2", "-q", u}
 	cmd := "ab"
 	return exec.Command(cmd, args...).Output()
 }
 
 func writeLog(data []byte) error {
 	name := "/go/src/abrunner/logs/" + time.Now().Format("20060102150405.9999999") + ".log"
+	last := "/go/src/abrunner/logs/last.log"
+
+	if err := ioutil.WriteFile(last, data, 0644); err != nil {
+		return errors.New("Error writing last log file: " + err.Error())
+	}
+
 	return ioutil.WriteFile(name, data, 0644)
 }
 
