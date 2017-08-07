@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"golang.org/x/net/context"
 
@@ -105,10 +106,13 @@ func urlHandler(w http.ResponseWriter, r *http.Request) {
 
 	u := fmt.Sprintf("http://%s:30000?n=%s&c=%s&token=%s", host, n, cc, token)
 
-	client := urlfetch.Client(c)
+	cWithDeadline, _ := context.WithTimeout(c, 1*time.Minute)
+
+	client := urlfetch.Client(cWithDeadline)
 	_, err := client.Get(u)
 	if err != nil {
-		handleError(c, w, errors.New("Problem sending the load to "+u))
+		handleError(c, w, errors.New("Problem sending the load to "+u+" Error: "+err.Error()))
+		return
 	}
 	sendMessage(w, "Success")
 	return
