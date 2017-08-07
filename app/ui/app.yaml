@@ -27,3 +27,10 @@ handlers:
   static_files: static/index.html
   upload: static/index.html
 
+- url: /advanced.html
+  static_files: static/advanced.html
+  upload: static/advanced.html
+
+- url: /advanced
+  static_files: static/advanced.html
+  upload: static/advanced.html
