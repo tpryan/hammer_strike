@@ -55,9 +55,11 @@ function RESULT(){
             var gkeInstanceDiv = $("#"+ report[i].Name);
 
             if (gkeInstanceDiv.length == 0){
-                var gkeInstanceDiv  = $("<div></div>");
+                var gkeInstanceDiv  = $("<a></a>");
                 gkeInstanceDiv.attr("id", report[i].name);
                 gkeInstanceDiv.addClass("gke");
+                gkeInstanceDiv.attr("href", "http://" + report[i].ip + ":30000/last");
+                gkeInstanceDiv.attr("target","_new");
                 $("#gkelist").append(gkeInstanceDiv);
 
             }

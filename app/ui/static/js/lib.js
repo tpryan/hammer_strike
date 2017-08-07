@@ -5,7 +5,7 @@ function DISTRIBUTOR(hostname){
     this.debug = false;
     var apihostname = hostname;
     this.timeout = 1000;
-    var apiprotocol = "http://"
+    var apiprotocol = "https://"
 
     var uri_report = "/distributor/report";
     var uri_load = "/distributor";
