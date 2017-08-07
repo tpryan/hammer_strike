@@ -79,7 +79,7 @@ func getInstanceList(c context.Context, token string) ([]string, error) {
 
 	for i := 0; i <= 15; i++ {
 		suffix := strconv.FormatInt(int64(i), 16)
-		ins = append(ins, token+"_instances-"+suffix)
+		ins = append(ins, token+"_instances_"+suffix)
 	}
 	result2, err := memcache.GetMulti(c, ins)
 	if err != nil {
