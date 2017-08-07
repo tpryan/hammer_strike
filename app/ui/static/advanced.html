@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/lib.js"></script>
+    <script src="js/advanced.js"></script>
+     <link href="css/animations.css" rel="stylesheet">
+    <link href="css/advanced.css" rel="stylesheet">
+    <title>App Engine Load Demo</title>
+</head>
+<body>
+    <div class="holder">
+
+        <div class="alert">
+            <div class="msg">
+                You sent <span id="sentrequests"><span class="count">0</span> Requests</span> <br />
+                App Engine handled <span id="totalrequests"><span class="count"></span> Requests</span> in <span class="seconds"></span> seconds  (QPS: <span class="qps"></span>)<br />
+                By spinning up <span id="totalinstances"><span class="count"></span> Instances</span>
+
+            </div>
+        </div>
+
+        <div class="slider-holder">
+            <button id="reset" disabled="disabled">Reset</button>
+            <button id="load">Send Load</button>
+            <!--<button id="analyze">Analyze</button>-->
+            <input id="loadcount" type="range" value="500" min="500" max="100000" step="100" />
+            <output id="loadoutput" for="loadcount"></output>
+        </div>
+
+        <h1>UI</h1>
+        <h2>HTML/CSS/JS on App Engine</h2>
+        <div class="layer">
+            <div class="gae"></div>
+        </div>
+        <h1>Distributor </h1>
+        <h2>Go on App Engine</h2>
+        <div class="layer private">
+            <div class="gae"></div>
+            <div id="loaddetails">
+            <div id="loadtodistribute"></div>
+            </div>
+        </div>
+        <h1>Load Servers</h1>
+        <h2>Go on Container Engine</h2>
+        <div id="gkelist"  class="layer">
+
+        </div>
+        <h1 id="load_url">http://[a totally real app].appspot.com</h1>
+        <h2>Go on App Engine</h2>
+        <div id="gaelist"  class="layer">
+
+        </div>
+
+
+    </div>
+</body>
+</html>

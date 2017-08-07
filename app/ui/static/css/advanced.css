@@ -1,0 +1,108 @@
+body{
+	font-family: "Open Sans";
+	font-weight: 100;
+	height:100%;
+}
+
+html{
+	height:100%;
+}
+
+.holder{
+	max-width: 1000px;
+	margin: 0 auto;
+	position: relative;
+	height:100%;
+}
+
+.gae{
+	background-image: url("appengine.png");
+	background-size: 100%;
+    background-repeat: no-repeat;
+	width: 30px;
+	height: 40px;
+	display: inline-block;
+	margin: 2px;
+	position: relative;
+	border-radius: 8px;
+	margin: 10px;
+}
+
+.gke{
+	background-image: url("containerengine.png");
+	background-size: 100%;
+    background-repeat: no-repeat;
+	width: 30px;
+	height: 40px;
+	display: inline-block;
+	margin: 2px;
+	position: relative;
+	border-radius: 8px;
+	margin: 10px;
+}
+
+
+.gae span{
+    position: relative;
+    bottom: -30px;
+    width: 30px;
+    text-align: center;
+    display: block;
+    font-size: 10px;
+     -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+
+
+h1{
+	font-size: 20px;
+	margin-bottom: 5px;
+}
+
+h2{
+	margin-top: 0;
+	font-size: 12px;
+	font-style: italic;
+}
+
+#gkelist{
+	display: none;
+}
+
+#gaelist{
+	display: none;
+}
+
+.msg span{
+	font-weight: 900;
+}
+
+#loadcount{
+	width: 500px;
+}
+
+.alert{
+	width: 600px;
+	position:absolute;
+	top: 100px;
+	right: 0;
+	border: 1px solid #333;
+	border-radius: 8px;
+	padding: 10px;
+	display: none;
+}
+
+.layer{
+	border: 2px solid #ccc;
+	border-radius: 6px;
+}
+
+.private{
+	border: 2px dotted #ccc;
+}
+
+.nodecount{
+	display: inline-block;
+}

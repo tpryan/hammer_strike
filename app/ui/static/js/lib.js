@@ -9,6 +9,7 @@ function DISTRIBUTOR(hostname){
 
     var uri_report = "/distributor/report";
     var uri_load = "/distributor";
+    var uri_list = "/distributor/list";
 
     var ajaxProxy = function(url, successHandler, errorHandler, timeout) {
         timeout = typeof timeout !== 'undefined' ? timeout : this.timeout;
@@ -32,12 +33,21 @@ function DISTRIBUTOR(hostname){
         return apiprotocol + apihostname + uri_report;
     };
 
+    var getListURI = function(){
+        return apiprotocol + apihostname + uri_list;
+    };
+
     var getLoadURI = function(){
         return apiprotocol + apihostname + uri_load;
     };
 
     this.Report = function(token, successHandler){
         ajaxProxy(getReportURI() +"?token=" + token, successHandler,
+                    defaultErrorHandler, this.timeout);
+    };
+
+    this.List = function(successHandler){
+        ajaxProxy(getListURI(), successHandler,
                     defaultErrorHandler, this.timeout);
     };
 
