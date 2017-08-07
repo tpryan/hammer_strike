@@ -88,18 +88,16 @@ func cache(c context.Context, token string) (uint64, error) {
 
 	// If the result is greater then 1 then we have seen this instance before,
 	// so our work is done.
-	if result > 1 {
-		return total, nil
-	}
-
-	// Increment the total count of all instances
-	if _, err = memcache.Increment(c, token+"_totalInstances", 1, 0); err != nil {
-		return 0, errors.New("cannot increment instance count: " + err.Error())
-	}
-
-	// Add the instance id to the lists of ID
-	if err := recordInstance(c, token, instanceID); err != nil {
-		return 0, err
+	if result == 1 {
+		log.Debugf(c, "Instance Never seen before: "+instanceID)
+		// Add the instance id to the lists of ID
+		if err := recordInstance(c, token, instanceID); err != nil {
+			return 0, errors.New("cannot add another instance to list: " + err.Error())
+		}
+		// Increment the total count of all instances
+		if _, err = memcache.Increment(c, token+"_totalInstances", 1, 0); err != nil {
+			return 0, errors.New("cannot increment the total instance count: " + err.Error())
+		}
 	}
 
 	return total, nil
@@ -124,40 +122,71 @@ func last(c context.Context, token string) error {
 
 func recordInstance(c context.Context, token string, instanceID string) error {
 	iList := whichList(instanceID, token)
+	log.Debugf(c, "Instance Being Recorded: "+instanceID)
 
-	item0, err := memcache.Get(c, iList)
-	if err != nil && err != memcache.ErrCacheMiss {
-		return errors.New("1st attempt - cannot get list of instances: " + err.Error())
-	}
-	if err != nil && err == memcache.ErrCacheMiss {
-		item1 := &memcache.Item{
-			Key:   iList,
-			Value: []byte(instanceID),
+	_, err := memcache.Get(c, iList)
+	if err != nil {
+		if err == memcache.ErrCacheMiss {
+			item1 := &memcache.Item{
+				Key:   iList,
+				Value: []byte(instanceID),
+			}
+			if err := memcache.Set(c, item1); err != nil {
+				return errors.New("cannot create list of instances: " + err.Error())
+			}
+		} else {
+			return errors.New("1st attempt - cannot get list of instances: " + err.Error())
 		}
-		if err := memcache.Set(c, item1); err != nil {
-			return errors.New("cannot create list of instances: " + err.Error())
-		}
-		return nil
 	}
+
 	listItem := "|" + instanceID
-	item0.Value = append(item0.Value, listItem...)
-	if err := memcache.Set(c, item0); err != nil {
-		if err.Error() == "memcache: compare-and-swap conflict" {
-			item2, err := memcache.Get(c, iList)
-			if err != nil {
-				return errors.New("2nd attempt - cannot get list of instances: " + err.Error())
-			}
-			item2.Value = append(item2.Value, listItem...)
-			if err := memcache.Set(c, item2); err != nil {
-				return errors.New("2nd attempt - cannot append list of instances: " + err.Error())
-			}
-			return nil
-		}
-		return errors.New("1st attempt - cannot append list of instances: " + err.Error())
+
+	if err := appendInstanceList(c, iList, listItem, 0); err != nil {
+		return errors.New("cannot append an instance list: " + err.Error())
 	}
+
 	return nil
 }
 
+func appendInstanceList(c context.Context, list string, listItem string, count int) error {
+	log.Debugf(c, "Instance Being Appended to List: "+listItem+" list:"+list)
+	item, err := memcache.Get(c, list)
+	if err != nil {
+		return errors.New("cannot get list of instances in edit instance list: " + err.Error())
+	}
+	item.Value = fastAppend(item.Value, listItem)
+
+	if err = memcache.Set(c, item); err != nil {
+		if count > 5 {
+			return errors.New("5th attempt - cannot append list of instances: " + err.Error())
+		}
+		if err == memcache.ErrCASConflict {
+			return appendInstanceList(c, list, listItem, count+1)
+		}
+		return err
+	}
+	log.Debugf(c, "Successfully appended to list: "+listItem+" list:"+list)
+	return nil
+}
+
+func fastAppend(list []byte, newitem string) []byte {
+	length := len(list) + len(newitem)
+	result := make([]byte, length)
+	c := 0
+
+	for _, value := range list {
+		result[c] = value
+		c++
+	}
+	for _, value := range newitem {
+		result[c] = byte(value)
+		c++
+	}
+
+	return result
+
+}
+
 func whichList(i, token string) string {
-	return token + "_instances-" + i[len(i)-1:]
+	return token + "_instances_" + i[len(i)-1:]
 }
