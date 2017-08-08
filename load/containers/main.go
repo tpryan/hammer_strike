@@ -12,7 +12,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/last", lastHandler)
+	http.HandleFunc("/log", logHandler)
 	http.HandleFunc("/healthz", healthHandler)
 	if err := http.ListenAndServe(":80", nil); err != nil {
 		fmt.Println(err.Error())
@@ -52,33 +52,38 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		handleError(w, err)
 		return
 	}
-	writeLog(results)
-	sendMessage(w, "success")
+	writeLog(results, token)
+	sendMessage(w, "success - handled ab for token:"+token+" on ip:"+r.RemoteAddr)
 	return
 
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
-	sendMessage(w, "success")
+	sendMessage(w, "success - system is healthy")
 	return
 }
 
-func lastHandler(w http.ResponseWriter, r *http.Request) {
-	code := http.StatusOK
+func logHandler(w http.ResponseWriter, r *http.Request) {
+	token := r.URL.Query().Get("token")
+	podname := os.Getenv("HOSTNAME")
 	content := ""
 
-	dat, err := ioutil.ReadFile("/go/src/abrunner/logs/last.log")
-
-	if err != nil {
-		code = http.StatusNotFound
-		content = "{ \"error\" : \"Not Found\" }"
+	if len(token) == 0 {
+		handleError(w, errors.New("You did not pass a token"))
+		return
 	}
 
-	content = string(dat)
+	dat, err := ioutil.ReadFile("/go/src/abrunner/logs/" + token + ".log")
+
+	if err != nil {
+		content = "No logs have been generated yet on pod:  " + podname + " " + err.Error()
+	} else {
+		content = podname + "\n" + string(dat)
+	}
 
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "text/plain;  charset=UTF-8")
-	w.WriteHeader(code)
+	w.WriteHeader(http.StatusOK)
 
 	fmt.Fprint(w, content)
 
@@ -91,13 +96,8 @@ func ab(n, c, u string) ([]byte, error) {
 	return exec.Command(cmd, args...).Output()
 }
 
-func writeLog(data []byte) error {
-	name := "/go/src/abrunner/logs/" + time.Now().Format("20060102150405.9999999") + ".log"
-	last := "/go/src/abrunner/logs/last.log"
-
-	if err := ioutil.WriteFile(last, data, 0644); err != nil {
-		return errors.New("Error writing last log file: " + err.Error())
-	}
+func writeLog(data []byte, token string) error {
+	name := "/go/src/abrunner/logs/" + token + ".log"
 
 	return ioutil.WriteFile(name, data, 0644)
 }
