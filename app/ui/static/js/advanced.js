@@ -48,7 +48,6 @@ function RESULT(){
     }
 
     this.ShowGKEResults = function(report){
-        console.log(report)
         $("#gkelist").show();
 
         for (var i = 0; i < report.length; i++){
@@ -58,7 +57,7 @@ function RESULT(){
                 var gkeInstanceDiv  = $("<a></a>");
                 gkeInstanceDiv.attr("id", report[i].name);
                 gkeInstanceDiv.addClass("gke");
-                gkeInstanceDiv.attr("href", "http://" + report[i].ip + ":30000/last");
+                gkeInstanceDiv.attr("href", "http://" + report[i].ip + ":30000/log?token=" + token);
                 gkeInstanceDiv.attr("target","_new");
                 $("#gkelist").append(gkeInstanceDiv);
 
@@ -67,6 +66,14 @@ function RESULT(){
         loadservers = report.length;
     }
 
+
+}
+
+function openAllGKE(e){
+    $gke = $(".gke");   
+    for (var i=0; i < $gke.length; i++){
+        window.open($gke[i].href, '_new' + i);
+    }
 
 }
 
@@ -120,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#analyze").click(analyizeResults);
     setLoadOutput();
     distributor.List(scoreboard.ShowGKEResults);
+    $("#showgke").click(openAllGKE);
 });
 
 
