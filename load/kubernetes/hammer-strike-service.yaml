@@ -5,6 +5,7 @@ metadata:
     name: hammer-strike
   name: hammer-strike
 spec:
+  externalTrafficPolicy: Local
   type: NodePort
   ports:
     - name: "http"
