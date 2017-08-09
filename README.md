@@ -1,5 +1,5 @@
 # Hammer Strike
-This is a demo that shows how fast Appengine can spin up instances to handle
+This is a demo that shows how fast App Engine can spin up instances to handle
 load that you send at it.  It simulates a hammer strike game where you hit the
 pad with a hammer and ring the bell. This is another one of those demos that
 means to be a be both a web demo and a IoT assisted physical game.
