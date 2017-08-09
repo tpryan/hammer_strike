@@ -2,8 +2,12 @@ BASEDIR = $(shell pwd)
 
 include ../../Makefile.properties
 NODEDISKSIZE="100"
-NODECOUNT="5"
+NODECOUNT="10"
 NODETYPE="n1-standard-2"
+
+.DEFAULT_GOAL := infrastructure
+
+infrastructure: cluster rule
 
 
 # Requests a GKE cluster

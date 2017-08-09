@@ -2,6 +2,8 @@ BASEDIR = $(shell pwd)
 
 include ../../Makefile.properties
 
+.DEFAULT_GOAL := app
+
 app: build deploy
 
 build:  env creds

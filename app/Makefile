@@ -1,6 +1,11 @@
 BASEDIR = $(shell pwd)
 include ../Makefile.properties
 
+.DEFAULT_GOAL := app
+
+app: create deploy
+
+
 create: env
 	gcloud app create --project $(PROJECT) --region $(REGION)
 
