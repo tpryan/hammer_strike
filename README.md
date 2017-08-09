@@ -5,7 +5,12 @@ pad with a hammer and ring the bell. This is another one of those demos that
 means to be a be both a web demo and a IoT assisted physical game.
 
 
-![Hammer Strike Screenshot](screenshots/screenshot.png "Screesnhot")
+![Hammer Strike Screenshot](screenshots/screenshot.png "Screenshot")
+
+There is also an advanced version of it that allows you to send a configurable 
+amount of traffic at App Engine to be a little more impressive. 
+
+![Hammer Strike Advanced Screenshot](screenshots/advanced.png "Advanced Screenshot")
 
 ## Getting Started
 
@@ -18,63 +23,47 @@ means to be a be both a web demo and a IoT assisted physical game.
 1. Make a copy of `/Samples.properties`, renamed to`/Makefile.properties`
 1. Alter value for `PROJECT` to your project id
 1. Make a copy of
-`/infrastructure/kubernetes/hammer-strike-deployment.sample.yaml`, renamed to `/infrastructure/kubernetes/hammer-strike-deployment.yaml`
+`/load/infrastructure/kubernetes/hammer-strike-deployment.sample.yaml`, renamed to `/load/infrastructure/kubernetes/hammer-strike-deployment.yaml`
 1. Alter value for `image` to point to your project id
 
-### Build Infrastructure
-1. Open a terminal in `/infrastructure/GKE`.
-1. Run `make build`
-1. Run `make rule`
+### Build Load Infrastructure
+1. Open a terminal in `/load/infrastructure/`.
+1. Run `make`
+1. Open a terminal in `/load/kubernetes/`.
+1. Run `make`
 
-TO DOCUMENT
-INCLUDE creating the App Engine application.
-
-
-### Build Application
-1. Open a terminal in `/app/kubernetes/`.
-1. Run `make deploy`
-
-## Clean Up Application
-1. Open a terminal in `/app/kubernetes/`.
-1. Run `make clean`
-
-## Clean Up Infrastructure
+## Clean Up Load Infrastructure
 You don't have to do this, but you might want to recreate the servers at some
 point.
-1. Open a terminal in `/infrastructure/`.
+1. Open a terminal in `/app/`.
+1. Run `make clean`
+1. Open a terminal in `/load/kubernetes/`.
 1. Run `make clean`
 
 
-## Using the app
+### Build Frontend Applications 
+1. Open a terminal in `/app/`.
+1. Run `make`
 
-### Stop Infrastructure
-1. Open a terminal in `/infrastructure/`.
-1. Run `make stop`
 
-### Restart Infrastructure
-1. Open a terminal in `/infrastructure/`.
-1. Run `make start`
-1. Run `make bounce`
 
-### Restart services on VMs
-1. Open a terminal in `/infrastructure/`.
-1. Run `make bounce`
+## Running the app
+Assuming all has worked, you should be able to browse to 
+https://[PROJECTID].appspot.com/ and you should see the carnival version of this
+application. 
 
-## Running the Physical Version
+If you would prefer the advanced version, you can navigate to 
+https://[PROJECTID].appspot.com/advanced.html. 
 
-### Build
-1. Refer to the [diagram](iot/diagram.png) to wire up the Arduino
-1. Load the Firmata sketch to the Arduino
-1. Open a terminal in `/iot/`.
-1. Run `npm install`
+Also note under folder `demo` there is a Makefile that can be used to illustrate
+that the frontend of the app is real.  It calls `gcloud` commands to count and 
+show the number of instances that are being used. 
 
-### Run
-1. Plug in the Arduino
-1. Open a terminal in `/iot/`.
-1. Run `npm start`
-1. Make sure you have only ONE copy of the UI open in a web browser.
-1. Hit the "Start" button on the device
-1. Strike the Hammer within 10 seconds
+* `make list` Show all of the instances. 
+* `make report` Show all instances with how many requests they have served.
+* `make count` Show a quick count of how many instances there are.
+* `make clean` Delete all the running instances.
+
 
 
 
