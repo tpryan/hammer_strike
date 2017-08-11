@@ -19,4 +19,7 @@ deploy.dispatch: env
 	appcfg.py update_dispatch -A $(PROJECT) .
 
 deploy.cron: env 
-	appcfg.py update_cron -A $(PROJECT) .				
+	appcfg.py update_cron -A $(PROJECT) .
+
+polish:
+	find . -name '*.DS_Store' -type f -delete				
