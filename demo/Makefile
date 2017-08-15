@@ -17,17 +17,17 @@ include ../Makefile.properties
 INSTANCELIST = $(shell gcloud app instances list --format='value[terminator=" "](id)')
 CURRENTVERSION = $(shell gcloud app versions list --hide-no-traffic --service=hammer-strike-load --format='value[terminator=" "](id)')
  
-clean:
+clean: env
 	for i in $(INSTANCELIST); do \
         gcloud app instances delete $$i -q --service=hammer-strike-load --version=$(CURRENTVERSION); \
     done
 	
 
-list:
+list: env
 	gcloud app instances list --service=hammer-strike-load
 
-count: 
+count: env
 	gcloud app instances list --service=hammer-strike-load | sed 1d | wc -l	
 
-report:
+report: env
 	gcloud app instances list --service=hammer-strike-load --format='value(id,instance.requests)'
