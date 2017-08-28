@@ -39,7 +39,7 @@ show just how fast App Engine can spin up a lot of instances.
 ## Questions
 <dl>
     <dt>What impacts QPS (Queries per second)</dt>
-    <dd>Well obviously the app itself does. But I have gotten the version of 
+    <dd>Well obviously the app itself does. But I have gotten a version of 
     the app above 8500 QPS. I think the limit is impacted by the load generating
     boxes and their throughput. Beefier machines here might help.  </dd>
     <dt>Why does the URL change from "a totally real url" to totally real 
@@ -49,5 +49,5 @@ show just how fast App Engine can spin up a lot of instances.
     cool. But after the demo runs, if they want to kick the tires, that's 
     fine. Keep in mind if the audience clicks the link, it will drive 
     down reported QPS time. Because they are adding new requests way after 
-    initial request</dd>
+    initial request.</dd>
 </dl>    
