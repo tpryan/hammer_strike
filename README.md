@@ -64,7 +64,7 @@ show the number of instances that are being used.
 * `make count` Show a quick count of how many instances there are.
 * `make clean` Delete all the running instances.
 
-
+There is more information in the [demo script](DEMO.md). 
 
 
 ## General Architecture
