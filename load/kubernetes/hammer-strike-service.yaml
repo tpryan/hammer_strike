@@ -28,4 +28,4 @@ spec:
       protocol: TCP
   # Label keys and values that must match in order to receive traffic for this service.
   selector:
-    app: hammer-strike
+    app: load
